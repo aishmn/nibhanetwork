@@ -1,0 +1,275 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block maincontent %}
+
+    <div class="container ">
+        <div class="container text-center m-1">
+            <div
+                class="nav nav-pills nav-justified"
+                id="v-pills-tab"
+                role="tablist"
+                aria-orientation="horizontal ">
+                <a
+                    class="nav-link nav-item active"
+                    id="v-pills-home-tab"
+                    data-toggle="pill"
+                    href="#v-pills-home"
+                    role="tab"
+                    aria-controls="v-pills-home"
+                    aria-selected="true">Home</a>
+                <a
+                    class="nav-link nav-item"
+                    id="v-pills-profile-tab"
+                    data-toggle="pill"
+                    href="#v-pills-profile"
+                    role="tab"
+                    aria-controls="v-pills-profile"
+                    aria-selected="false">Royalty Income</a>
+                <a
+                    class="nav-link nav-item"
+                    id="v-pills-messages-tab"
+                    data-toggle="pill"
+                    href="#v-pills-messages"
+                    role="tab"
+                    aria-controls="v-pills-messages"
+                    aria-selected="false">Direct Sponsor Income</a>
+                <a
+                    class="nav-link nav-item"
+                    id="v-pills-settings-tab"
+                    data-toggle="pill"
+                    href="#v-pills-settings"
+                    role="tab"
+                    aria-controls="v-pills-settings"
+                    aria-selected="false">Single leg income</a>
+            </div>
+        </div>
+        <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                <div class="card text-center">
+                    <div class="card-header">
+                        
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Your payment Calcuation.</h5>
+                        <ul class="lead list-group list-hover">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">Single Leg Income<span class="leaad">{{single_leg_income}}</span></li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">Royalty Income<span class="leaad">{{total_royalty_income}}</span></li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">Direct Sponsor Income<span class="leaad">{{total_sponsor_income}}</span></li>
+
+                            <hr class="lead">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span class="text-center">
+                                    Total ammount</span>{{ grand.total}}</li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span class="text-center">
+                                    Withdrawn</span>{{ grand.withdrawn}}</li>
+                            <hr class="border-top-3 bg-dark">
+                            <li
+                                class="list-group-item d-flex bg-success justify-content-between align-items-center"
+                                style="color:white;">
+                                <span class="text-center">
+                                    Remaining</span>{{ grand.remaining}}</li>
+                        </ul>
+
+                        <form action="{% url 'withdraw' %}" method="POST" class=" m-2 p-2 form border border-primary" onsubmit="return confirm('Do you really want Withdraw from nhplwallet? 10% of admin charge and 5% of tds charge will be dedcted from the withdraw ammount !');">
+                            {% csrf_token %}
+                            <hr class="bg-dark border-top-1">
+                            <input
+                                type="number"
+                                class="form-control form-control-lg"
+                                name="ammount"
+                                placeholder="Enter Ammount to be Withdrawed">   <br> 
+                            <input
+                                type="text"
+                                class="form-control form-control-lg"
+                                name="method"
+                                placeholder="Enter Your Payment Method"> <br>
+                            <input type="submit" class="btn btn-primary form-control form-control-lg" value="Withdraw">
+
+                        </form>
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <strong>Hello {{ request.user }}!! </strong> 10% of admin charge and 5% of tds is being deducted on every withdrawl!! Wish You a great luck ahead!! .
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                            {% if withdrawl %}
+                            <div class="card-footer text-muted">
+                                <table class="table table-hover">
+                                    <div class="text-center badge-lg badge-primary p-2 lead">Payments History</div>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">sn</th>
+                                            <th scope="col">User</th>
+                                            <th scope="col">Withdrawl ammount</th>
+                                            <th scope="col">tds & admin</th>
+                                            <th scope="col">Paid</th>
+                                            <th scope="col">Payment method</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                            
+                            
+                                        {% for withdrawl in withdrawl %}
+                                        <tr>
+                                            <th scope="row">{{withdrawl.id}}</th>
+                                            <td>{{ withdrawl.profile }}</td>
+                                            <td>{{ withdrawl.ammount }}</td>
+                                            <td>15%(included)</td>
+                                            {% if withdrawl.paid == True %}
+                                            <td><i class="fas fa-check"></i></td>
+                                            {% else %}
+                                            <td><i class="fas fa-times"></i></td>
+                                            {% endif %}
+                                            <td>{{ withdrawl.method}}</td>
+                                            <td>{{ withdrawl.date}}</td>
+                            
+                                            {% if withdrawl.paid == True %}
+                                            <td>Paid</td>
+                                            {% else %}
+                                            <td>Pending</td>
+                                            {% endif %}
+                            
+                                        </tr>
+                                        {% endfor %}
+                            
+                                    </tbody>
+                                </table>
+                            
+                            </div>
+                            {% endif %}
+
+                    </div>
+                </div>
+                       
+
+            </div>
+            <div
+                class="tab-pane fade"
+                id="v-pills-profile"
+                role="tabpanel"
+                aria-labelledby="v-pills-profile-tab">
+
+                {% if royalty %}
+
+                    <div class="card text-center">
+                        <div class="card-header">
+                            Royalty Income
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Your achivements</h5>
+                            <p class="card-text">You are going well, we wish you best of luck from nhplnetwork, keep earning!!.</p>
+                            <div class="text-center">
+                                <ul class="list-group">
+
+                                    {% for royalty_income in royalty %}
+                                       
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            {{ royalty_income.level}}
+                                            <span class="badge badge-primary badge-pill">{{royalty_income.ammount}}</span>
+                                        </li>
+
+                                    {% endfor %}
+
+                                </ul>
+                            </div>
+
+                        </div>
+                        <div class="card-footer text-muted"></div>
+                    </div>
+                {% endif %}
+
+            </div>
+
+            <div
+                class="tab-pane fade"
+                id="v-pills-messages"
+                role="tabpanel"
+                aria-labelledby="v-pills-messages-tab">
+                {% if direct %}
+
+                    <div class="card text-center">
+                        <div class="card-header">
+                            Direct Income
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Your achivements</h5>
+                            <p class="card-text">The more You Refer is more you Earn!! .</p>
+                            <div class="text-center">
+                                <ul class="list-group">
+
+                                    {% for direct_income in direct %}
+                                        {{ royalty_income }}
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            {{ direct_income.level}}
+                                             <span class="btn form-control text-center"><span>{{direct_income.total_users}}</span></span>
+                                            <span class="badge badge-primary badge-pill">{{direct_income.ammount}}</span>
+                                        </li>
+
+                                    {% endfor %}
+
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                {% endif %}
+
+            </div>
+            <div
+                class="tab-pane fade"
+                id="v-pills-settings"
+                role="tabpanel"
+                aria-labelledby="v-pills-settings-tab">
+
+                {% if single_leg %}
+
+                    <div class="card text-center">
+                        <div class="card-header">
+                            Single Leg Income
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Your achivements</h5>
+                            <p class="card-text"></p>
+                            <div class="text-center">Great teams are made with great patience !! keep going!
+                                <ul class="list-group">
+
+                                    {% for single_leg_income in single_leg %}
+                                        
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            {{ single_leg_income.level}}
+                                            <span class="badge badge-primary badge-pill">{{single_leg_income.ammount}}</span>
+                                        </li>
+
+                                    {% endfor %}
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-footer text-muted"></div>
+                    </div>
+                {% endif %}
+
+            </div>
+            <div
+                class="tab-pane fade"
+                id="v-pills-settings"
+                role="tabpanel"
+                aria-labelledby="v-pills-settings-tab">
+                
+               
+            
+            
+            
+            
+            
+            
+            
+            </div>
+
+        </div>
+    </div>
+{% endblock maincontent %}

@@ -1,0 +1,100 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+
+{% block maincontent %}
+
+
+<div class="container bg-alert mt-2">
+    <div class="text-center mb-2"><span class="lead p-2">Epin ManageMent</span></div>
+    <ul class="nav nav-pills mb-3 nav-justified id="pills-tab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home"
+                aria-selected="true">Create</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile"
+                aria-selected="false">Manage</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact"
+                aria-selected="false">Contact</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+            <div class="container">
+                <div class="row ">
+                    <div class="col-md-12">
+                        <form class="form mt-3" action="{% url 'create_epin' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Enter Pin Ammount!!</label>
+                                <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="ammount"
+                                    placeholder="Enter Pin Ammount!!">
+                                <small id="emailHelp" class="form-text text-muted">Pin ammount is the number of a pin you want to
+                                    generate</small>
+                            </div>
+            
+                            <div class="form-group">
+                                <label for="">Pin Value</label>
+                                <input type="number" class="form-control" id="exampleInputPassword1" name="value" placeholder="Value Of the Pin">
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">I agree</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary form-control m-2 ">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+            
+            {% if epin %}
+            <table class="table table-hover">
+                <div class="text-center badge-lg badge-primary p-2 lead">Epin ManageMent</div>
+                <thead>
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">Serial No</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Used By</th>
+                        <th scope="col">Activated Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+            
+            
+                    {% for pin in epin %}
+                    <tr>
+                        <th scope="row">{{pin.id}}</th>
+                            <th>{{pin.serial_no}}</th>
+                            {% if pin.used == False %}
+                        <td>Not Used </td>
+                            {% else%}
+                        <td>Used</td>
+                            {% endif %}
+                        <td>{{ pin.used_by }}</td>
+                        <td>{{ pin.used_at }}</td>
+                    {% endfor %}
+            
+                </tbody>
+            </table>
+            {% endif %}
+                
+        </div>
+        <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+
+            
+
+
+
+        </div>
+    </div>
+</div>
+{% endblock maincontent %}

@@ -1,0 +1,104 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block maincontent %}
+	
+<div class="container">
+	<div class="row jumbotron">
+		<div class=" col-md-6">
+			<ul class="nav flex-column">
+				<li class="nav-item">
+					<a class="nav-link active" href="{% url 'epin_management' %}">Epin Management</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Profile Management</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Link</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link disabled" href="#">Disabled</a>
+				</li>
+			</ul>
+		</div>
+		<div class="col-md-6	">
+			<div class="text-center ">
+					<table class="table table-responsive table-light m-auto bg-alert ">
+						<thead class="">
+							<tr class="">
+								<h1>Total User <span class="badge badge-secondary">{{ total_user_count }}</span></h1>
+							</tr>
+					
+							<tr class="">
+								<h1>Activated User <span class="badge badge-secondary">{{ total_activated_user_count }}</span></h1>
+							</tr>
+							<tr class="">
+								<h1>Total Epin <span class="badge badge-secondary">{{ total_epin_count }}</span></h1>
+							</tr>
+						</thead>
+							<div>	
+							</div>
+						<tbody></tbody>
+					</table>
+			</div>
+			
+			
+			
+			
+		</div>
+	</div>
+</div>	
+
+
+
+
+
+
+
+
+
+
+
+<div class="container bg-alert mt-1">
+		<table class="table table-hover">
+			<div class="text-center badge-lg badge-primary p-2 lead">Todays Payments</div>
+			<thead>
+				<tr>
+					<th scope="col">sn</th>
+					<th scope="col">User</th>
+					<th scope="col">Withdrawl ammount</th>
+					<th scope="col">Paid</th>
+					<th scope="col">Payment method</th>
+					<th scope="col">Date</th>
+					<th scope="col">status</th>
+					<th scope="col">Pay</th>
+				</tr>
+			</thead>
+			<tbody>
+				
+				
+				{% for withdrawl in withdrawl  %}
+					<tr>
+						<th scope="row">{{withdrawl.id}}</th>
+						<td>{{ withdrawl.profile }}</td>
+						<td>{{ withdrawl.ammount }}</td>
+						
+						{% if withdrawl.paid == True %}
+							<td><i class="fas fa-check"></i></td>
+						{% else %}
+							<td><i class="fas fa-times"></i></td>
+						{% endif %}
+						<td>{{ withdrawl.method}}</td>
+						<td>{{ withdrawl.date}}</td>
+						<td></td>
+						<td><form action="{% url 'paid' %}" onsubmit="return confirm('Do you really want to pay!!?');" method="POST" >
+							{% csrf_token %}
+							<input type="hidden" name="id" value="{{ withdrawl.id }}" placeholder="{{ withdrawl.id }} ">
+							<input class="btn btn-primary rounded" type="submit" value="pay">
+						</form></td>
+					</tr>
+				{% endfor %}
+				
+			</tbody>
+		</table>
+	</div>
+{% endblock maincontent %}

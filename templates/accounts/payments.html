@@ -1,0 +1,280 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block maincontent %}
+    <div class="container jumbotron-fluid">
+        
+        <div class="col-lg-12 text-center">
+            <div class="text-center lead">Wallet</div>
+            <hr class="bg-dark">
+            <div class="wrap text-center">
+                <div class="card">
+                    <div class="card-body border-primary bg-dark">
+                        <h5 class="card-title">Total Income</h5>
+                        <ul class="list-group">
+                            {% if royalty_income_l1 %}
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                <strong>Congratulation
+                                    {{ request.user }}!</strong>
+                                You Have achived First level of royalty! Keep Working! Thanks from nhplnetwork
+                                family!
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            {% endif %}
+                            {% if royalty_income_l1 %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                                    Royalty Level one:
+
+                                    <span class="badge badge-primary badge-pill">{{royalty_income_l1.ammount}}</span>
+                                </li>
+                            {% endif %}
+
+                            {% if royalty_income_l2 %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                                    Royalty Level two:
+
+                                    <span class="badge badge-primary badge-pill">{{royalty_income_l2.ammount}}</span>
+                                </li>
+                            {% endif %}
+
+                            {% if royalty_income_l3 %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                                    Royalty Level three:
+
+                                    <span class="badge badge-primary badge-pill">{{royalty_income_l3.ammount}}</span>
+                                </li>
+                            {% endif %}
+                        </ul>
+                        <hr class="lead">
+                        <ul class="list-group">
+                            {% if direct_income_l1 %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                                    Direct sponsor Income Level one:
+
+                                    <span class="badge badge-primary badge-pill">{{direct_income_l1.ammount}}</span>
+                                </li>
+                            {% endif %}
+
+                            {% if direct_income_l2 %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                                    Direct sponsor Income Level one:
+
+                                    <span class="badge badge-primary badge-pill">{{direct_income_l2.ammount}}</span>
+                                </li>
+                            {% endif %}
+
+                            {% if direct_income_l3 %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                                    Direct sponsor Income Level one:
+
+                                    <span class="badge badge-primary badge-pill">{{direct_income_l3.ammount}}</span>
+                                </li>
+                            {% endif %}
+
+                            {% if direct_income_l4 %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                                    Direct sponsor Income Level one:
+
+                                    <span class="badge badge-primary badge-pill">{{direct_income_l4.ammount}}</span>
+                                </li>
+                            {% endif %}
+
+                            {% if direct_income_l5 %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                                    Direct sponsor Income Level one:
+
+                                    <span class="badge badge-primary badge-pill">{{direct_income_l5.ammount}}</span>
+                                </li>
+                            {% endif %}
+
+                            {% if direct_income_l6 %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                                    Direct sponsor Income Level Six:
+
+                                    <span class="badge badge-primary badge-pill">{{direct_income_l6.ammount}}</span>
+                                </li>
+                            {% endif %}
+
+                            {% if direct_income_l7 %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                                    Direct sponsor Income Level seven:
+
+                                    <span class="badge badge-primary badge-pill">{{direct_income_l7.ammount}}</span>
+                                </li>
+                            {% endif %}
+
+                            {% if direct_income_l8 %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                                    Direct sponsor Income Level eight:
+
+                                    <span class="badge badge-primary badge-pill">{{direct_income_l8.ammount}}</span>
+                                </li>
+                            {% endif %}
+
+                            {% if direct_income_l9 %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                                    Sponsor Income Level nine:
+
+                                    <span class="badge badge-primary badge-pill">{{direct_income_l9.ammount}}</span>
+                                </li>
+                            {% endif %}
+
+                            {% if direct_income_l10 %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                                    Sponsor Income Level ten:
+
+                                    <span class="badge badge-primary badge-pill">{{direct_income_l10.ammount}}</span>
+                                </li>
+                            {% endif %}
+                        </ul>
+                        <br>
+                        <ul class="list-group">
+                            {% if single_leg_income_l1 %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                                    Single leg level one:
+
+                                    <span class="badge badge-primary badge-pill">{{single_leg_income_l1.ammount}}</span>
+                                </li>
+                            {% endif %}
+
+                            {% if single_leg_income_l2 %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                                    Single leg level two:
+
+                                    <span class="badge badge-primary badge-pill">{{single_leg_income_l2.ammount}}</span>
+                                </li>
+                            {% endif %}
+
+                            {% if single_leg_income_l3 %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                                    Single leg level three:
+
+                                    <span class="badge badge-primary badge-pill">{{single_leg_income_l3.ammount}}</span>
+                                </li>
+                            {% endif %}
+
+                            {% if single_leg_income_l4 %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                                    Single leg level four:
+
+                                    <span class="badge badge-primary badge-pill">{{single_leg_income_l4.ammount}}</span>
+                                </li>
+                            {% endif %}
+
+                            {% if single_leg_income_l5 %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                                    Single leg level five:
+
+                                    <span class="badge badge-primary badge-pill">{{single_leg_income_l5.ammount}}</span>
+                                </li>
+                            {% endif %}
+
+                            {% if single_leg_income_l6 %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                                    Single leg level six:
+
+                                    <span class="badge badge-primary badge-pill">{{single_leg_income_l6.ammount}}</span>
+                                </li>
+                            {% endif %}
+                            {% if single_leg_income_l7 %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                                    Single leg level seven:
+
+                                    <span class="badge badge-primary badge-pill">{{single_leg_income_l7.ammount}}</span>
+                                </li>
+                            {% endif %}
+                            {% if single_leg_income_l8 %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                                    Single leg level eight:
+
+                                    <span class="badge badge-primary badge-pill">{{single_leg_income_l8.ammount}}</span>
+                                </li>
+                            {% endif %}
+                            {% if single_leg_income_l9 %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                                    Single leg level nine:
+
+                                    <span class="badge badge-primary badge-pill">{{single_leg_income_l9.ammount}}</span>
+                                </li>
+                            {% endif %}
+                            {% if single_leg_income_l10 %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                                    Single leg level ten:
+
+                                    <span class="badge badge-primary badge-pill">{{single_leg_income_l10.ammount}}</span>
+                                </li>
+                            {% endif %}
+                            {% if single_leg_income_l11 %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                                    Single leg level eleven:
+
+                                    <span class="badge badge-primary badge-pill">{{single_leg_income_l11.ammount}}</span>
+                                </li>
+                            {% endif %}
+                            {% if single_leg_income_l12 %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                                    Single leg level twelve:
+
+                                    <span class="badge badge-primary badge-pill">{{single_leg_income_l12.ammount}}</span>
+                                </li>
+                            {% endif %}
+                            {% if single_leg_income_l13 %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                                    Single leg level thirteen:
+
+                                    <span class="badge badge-primary badge-pill">{{single_leg_income_l13.ammount}}</span>
+                                </li>
+                            {% endif %}
+                            {% if single_leg_income_l14 %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                                    Single leg level fourteen:
+
+                                    <span class="badge badge-primary badge-pill">{{single_leg_income_l14.ammount}}</span>
+                                </li>
+                            {% endif %}
+                            {% if single_leg_income_l15 %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                                    Single leg level fifteen:
+
+                                    <span class="badge badge-primary badge-pill">{{single_leg_income_l15.ammount}}</span>
+                                </li>
+                            {% endif %}
+
+                        </ul>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <a href="{% url 'withdraw' %}" class="btn btn-primary">Withdraw</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

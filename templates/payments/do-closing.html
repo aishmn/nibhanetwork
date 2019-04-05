@@ -1,0 +1,19 @@
+
+
+{% extends 'home/base.html' %}
+{% load static %}
+{% block maincontent %}
+	<div class="container bg-alert border-top-3 mt-5">
+		<div class="text-center lead p-2">You are agreeing to do closing for today !! think twice and prooced</div>
+		<form action="{% url "do-closing" %}" class="form" method="POST">
+			{% csrf_token %}
+			<div class="jumbotron text-center">
+			<div class="radio text-center">
+				<input type="password" class="text-center form form-control" name="value" placeholder="Please type AGREE all in CAPITAL letters!!">
+			</div>
+			<hr class="lead">
+			<button class="btn btn-primary lead">Do closing For Today</button>
+			</div>
+		</form>
+	</div>
+{% endblock maincontent %}

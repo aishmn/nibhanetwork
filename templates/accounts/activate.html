@@ -1,0 +1,48 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block maincontent %}
+
+
+<div class="container mt-5">
+    <div class="container register">
+            <div class="row">
+                    <div class="col-sm-3 register-left">
+                        <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="" />
+                        <h3>Welcome to NHPL</h3>
+                        <p>You are 30 seconds away from earning your own money!</p>
+
+                    </div>
+                    <div class="col-md-9 register-right">
+
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <h3 class="register-heading">Activate Your account <h3>
+                                        <div class="row register-form">
+                                            <div class="col-md-12">
+
+                                                <form action="{% url 'activate' %}" method="POST">
+                                                    {% csrf_token %}
+                                                    <label for="serial_no" class="lead">Enter Epin Serial No:</label>
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control bg-dark text-light" name="serial_no" placeholder="Enter Pin serial No here!!">
+                                                        </div>
+                                                    <div class="text-center form-group">
+                                                        <input type="submit" class="btn btn-success form-control" value="Activate"  >
+                                                    </div>
+                                                </form>
+
+
+
+
+                                            </div>
+                                        </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+</div>
+{% endblock maincontent %}

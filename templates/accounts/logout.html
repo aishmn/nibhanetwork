@@ -1,0 +1,13 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+
+{% block maincontent %}
+
+
+<div class="container bg-alert border-top-3 mt-5">
+
+<div class="row container mt-5 pt-5"><h1>Thank you user for being with nhplnetwork. We hope to see you again. You have been loged out !!</h1></div>
+Wanna Login Again!!  <a href="{% url 'login' %}" class="link badge-lg">login</a>
+</div>
+{% endblock maincontent %}

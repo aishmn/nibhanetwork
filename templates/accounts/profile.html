@@ -1,0 +1,248 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block maincontent %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">NHPLNETWORK</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'home' %}">Home
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="{% url 'user-settings' %}" class="nav-link">Settings</a>
+                        
+                    </li>
+                    <li class="nav-item active">
+                        <a href="{% url 'payments' %}" class="nav-link">Payments</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="{% url 'register' %}?user={{ request.user }}" class="nav-link">Refer</a>
+                    </li>   
+                    <li class="btn-sm nav-item text-light bg-secondary m-1" data-toggle="modal" data-target="#notifications">
+                        Notifications <span class="badge badge-light">{{ total_notifications_count }}</span>
+                    </li>
+                    <li class="btn-sm nav-item text-light bg-secondary m-1" data-toggle="modal" data-target="#messages" ">
+                        Messages <span class="badge badge-light">{{ total_message_count }}</span>
+                    </li>
+                    <li class="btn-sm nav-item text-light bg-secondary m-1" data-toggle="modal" data-target="#exampleModal">Send Messages
+                    </li>
+                    <li class="nav-item active">
+                        <div class="dropdown mt-1">
+                            <a class="nav-link sm dropdown-toggle active" id="dropdownMenuButton" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                @{{u_profile.user}}
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                            </div>
+                        </div>
+
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Page Content -->
+    <div class="container">
+    
+        <div class="row">
+            
+            {% if not u_profile.activated %}
+                <div class="alert alert-primary alert-dismissible fade show text-center" role="alert">
+                    <strong>Hello {{ request.user }}</strong> Your id is Not Activated So Please Kindly Activate Your Account.Get Epin
+                    from the nearest franchise or company authorities!!Start Earning today!! Great Luck Ahead!
+                    <a href="{% url 'activate' %}" class="link">Activate it today</a>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
+                
+            <!-- Blog Entries Column -->
+            <div class="col-md-8">
+                
+                {% if posts %}
+                    
+                    {% for post in posts %}
+                        <div class="card mt-4">
+                    <img class="card-img-top" src="{{ post.image.url }}" alt="Card image cap">
+                    <div class="card-body">
+                        <h2 class="card-title">{{post.title}}</h2>
+                        <p class="card-text">{{ post.blog }}</p>
+                    </div>
+                    <div class="card-footer text-muted">
+                        {{ post.date}}
+        
+                    </div>
+                </div>
+                    {% endfor %}
+                        
+                {% endif %}
+                    
+                
+                <!-- Blog Post -->
+                
+    
+               
+                
+            </div>
+    
+            <!-- Sidebar Widgets Column -->
+            <div class="col-md-4">
+
+    
+                <!-- Categories Widget -->
+                <div class="card my-4">
+                    <h5 class="card-header">Informations</h5>
+                    <div class="card-body">
+                        <div class="row">
+                                <table class="table table-responsive table-light m-auto bg-alert m-2 text-center">
+                                    <thead class="">
+                                        <tr class="">
+                                            <h1>Total User <span class="badge badge-secondary">{{ total_user_count }}</span></h1>
+                                        </tr>
+                                
+                                        <tr class="">
+                                            <h1>Activated User <span class="badge badge-secondary">{{ total_activated_user_count }}</span></h1>
+                                        </tr>
+                                    </thead>
+                                    <div>
+                                    </div>
+                                    <tbody></tbody>
+                                </table>
+
+                        </div>
+                        </div>
+                    </div>
+    
+                <!-- Side Widget -->
+                <div class="card my-4">
+                    <h5 class="card-header"> Messages</h5>
+                    <div class="card-body">
+                        
+                        {% for message in message  %}
+                            <ul class="list-group">
+                                <span class="">{{message.send_by}}<li class="nav-link lead text-muted">{{ message.body }}</li></span>
+                            </ul>
+                            <br class="border border-success">
+                        {% endfor %}
+                            
+
+
+
+
+                    </div>
+                </div>
+    
+            </div>
+    
+        </div>
+  
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="POST" action="{% url 'send_message' %}">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label for="sel1">Select Freind:</label>
+                                                <select class="form-control" id="sel1" name="reciever">
+                                                    {% for user in total_activated_user %}
+                                                    <option>{{user}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="message-text" class="col-form-label">Message:</label>
+                                            <input type="text" class="form-control" name="message" id="message-text">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <input type="submit" class="btn btn-primary" value="Send message">
+                                        </div>
+                                </form>
+                            </div>
+                
+                        </div>
+                    </div>
+                </div>
+                <div class="modal" id="notifications" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Notifications</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                {% if notifications %}
+                
+                                {% for notification in notifications %}
+                                <ul class="list-group">
+                                    <span class="lead nav-item ">{{notification.notice}}</span>
+                                </ul>
+                                {% endfor %}
+                
+                                {% endif %}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="messages" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Messages</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                {% if message %}
+                
+                                {% for message in message %}
+                                <ul class="list-group">
+                
+                                    {{message.send_by}}<span class="lead nav-item ml-2 active">{{message.body}}</span>
+                                </ul>
+                                {% endfor %}
+                
+                                {% endif %}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        <!-- /.row -->
+    
+    </div>
+    <!-- /.container -->
+
+
+
+
+
+{% endblock maincontent %}

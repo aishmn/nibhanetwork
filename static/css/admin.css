@@ -1,0 +1,13 @@
+#header{
+    height: 50px;
+    background: #1E555C;
+    line-height: 50px;
+}
+
+div.breadcrumbs{
+    background: #556F44;
+    color:white;
+}
+div.breadcrumbs a{
+    color: azure;
+}
